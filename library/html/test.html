@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bootstrap 实例 - 简单的轮播（Carousel）插件</title>
+    <script src="../js/jquery-2.0.3.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<form action="" method="post">
+
+    <div>
+        按姓名查询：
+        <input type="text" size="15" name="name" value="1" >
+        &nbsp; 按报考车型查询：
+        <select name="car_type" id="select"  value="A1" >
+            <option value="all" >全部</option>
+            <option value="A1"  >A1</option>
+            <option value="a2"  >A2</option>
+            <option value="a3"  >A3</option>
+            <option value="b1" >B1</option>
+            <option value="b2" id="b1">B2</option>
+            <option value="c1" >C1</option>
+            <option value="c2">C2</option>
+            <option value="c3">C3</option>
+            <option value="c4" >C4</option>
+        </select>
+        &nbsp; 按学业状态查询：
+        <select name="scondition" id="select01">
+            <option value="all">全部</option>
+            <option value="学习">学习</option>
+            <option value="结业">结业</option>
+            <option value="退学">退学</option>
+        </select>
+        <input type="button" onclick="save()" value="确定">
+        <!--<button type="submit" onclick="save()">提交</button>-->
+    </div>
+    <script>
+
+        function save()
+        {
+
+            var str=document.getElementById("select").value;
+            var obj=document.getElementById("select");
+            for(var i=0;i<obj.length;i++)
+
+//          obj[i].selected=true;
+                if(obj[i].value==str)
+                    document.getElementById("select")[i].selected=true;
+            document.getElementById("select01")[0].selected=true;
+        }
+    </script>
+</form>
+
+
+</body>
+
+</html>

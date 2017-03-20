@@ -1,0 +1,62 @@
+body
+{
+    background-color: #5bc0de;
+ width: 1600px;
+
+}
+.center
+{
+    margin: 0 auto;
+    width: 60%;
+    height: 500px;
+    background-image: url("../img/denglu2.jpg");
+
+}
+.center>div.left
+{
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+.center>div.right
+{
+    width: 50%;
+    height: 100%;
+    float: left;
+    text-align: center;
+}
+.center>div.right>form
+{
+  margin-top: 270px;
+
+}
+
+#z1
+{
+   margin-right: 55px;
+    margin-bottom: 20px;
+
+}
+#z2
+{
+    margin-right: 40px;
+}
+#botton
+{
+
+    display: inline-block;
+    margin-left: 10px;
+}
+#checkbox
+{
+    margin-left: 30px;
+    display: inline-block;
+}
+#zhuce
+ {
+     display: inline-block;
+ }
+#mimazhaohui
+{
+    display: inline-block;
+}

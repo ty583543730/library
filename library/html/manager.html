@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>信息管理</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/managerstyle.css" rel="stylesheet">
+    <script src="../js/jquery-2.0.3.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/indexjs.js"></script>
+</head>
+<body>
+
+
+
+
+
+<div class="top">
+
+    <div id="huizhang"><a href="../index.html"><img src="../img/huizhang.png" width="80px" height="80px"></a></div>
+    <div id="biaoti">
+        <span>武汉科技大学图书馆青年志愿者服务队</span>
+    </div>
+</div>
+<div class="center">
+<div class="guide">
+    <p>点击图标回主页</p>
+</div>
+
+
+    <div id="change">
+        <a href="../html/change.html">信息修改</a>
+        <a href="../html/txt.html">报名信息</a>
+        <a href="../html/code.html">邀请码</a>
+        <a href="#" onclick="change1()" id="create">生成邀请码</a>
+    </div>
+
+  <div id="list">
+
+      <li id="li1">
+          <span class="spanone">姓名</span>
+          <span class="spantwo">学号</span>
+          <span class="spanthree">志愿者编号</span>
+          <span class="spanfour">小队号</span>
+          <span class="spanfive">工时</span>
+          <span class="spansix">邀请码</span>
+      </li>
+  </div>
+
+
+</div>
+<div id="div1" style="display:none;">
+    <textarea id="change11" style="width: 200px;height: 100px;" placeholder="输入邀请码类型：1（志愿者）2（委员)"></textarea>
+    <input type="button" id="changebutton1" style="width:40px; height:30px;" value="确定" onclick="change11()">
+</div>
+<script>
+    $(function(){
+
+        $.ajax({
+
+                    url:"../php/managerprove.php",
+                    dataType:"text",
+                    success:function(data)
+                    {
+
+                        if(data==0)
+                        {    alert('请登录');
+                            window.location.href='../html/denglu.html';
+                            return false;
+                        }
+                        else if(data==2)
+                        {
+                            document.getElementById("create").style.display="none";
+                        }
+                    }
+                }
+
+        )
+        var x=0;
+        var str="";
+        for(var i=0;i<15;i++)
+        {   str+="<li>";
+            for(var j=0;j<6;j++)
+            {   x=i*6+j+1;
+                switch (j)
+                {
+                    case 0:
+                        str+="<span id='span"+x+"' class='spanone'></span>"
+                        break;
+                    case 1:
+                        str+="<span id='span"+x+"' class='spantwo'></span>"
+                        break;
+                    case 2:
+                        str+="<span id='span"+x+"' class='spanthree'></span>"
+                        break;
+                    case 3:
+                        str+="<span id='span"+x+"' class='spanfour'></span>"
+                        break;
+                    case 4:
+                        str+="<span id='span"+x+"' class='spanfive'></span>"
+                        break;
+                    case 5:
+                    {
+                        str+="<span id='span"+x+"' class='spansix'></span>"
+                        str+="</li>"
+                        break;
+                    }
+            }
+            }
+
+       }
+        str+="<div id='a'>";
+        str+="<a id='first' href='#'>首页</a>"
+        str+="<a id='previous' href='#'>上一页</a>"
+        str+="<a id='next' href='#'>下一页</a>"
+        str+="<a id='last' href='#'>末页</a></div>"
+
+$("#list").append(str);
+
+
+var pagecount=0;
+        function GetQueryString(name)
+
+        {
+
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+
+            var r = window.location.search.substr(1).match(reg);
+
+            if(r!=null)return  unescape(r[2]); return null;
+
+        }
+
+        var myurl=GetQueryString("pagenow");
+
+        if(myurl !=null && myurl.toString().length>=1)
+
+        {
+
+            var pagenow=(GetQueryString("pagenow"));
+
+        }
+        else
+        {
+            window.location.href='../html/manager.html?pagenow=1';
+        }
+        $.ajax({
+            url:"../php/managerpagecount.php",
+            dataType:"text",
+            async:false,
+            success:function(data){
+                pagecount=data;
+
+            },
+            error:function(err){
+
+            }
+        })
+        $("#first").click(function(){
+
+            window.location.href='../html/manager.html?pagenow=1';
+        })
+        $("#previous").click(function(){
+            if(pagenow>1)
+                pagenow--;
+            window.location.href="../html/manager.html?pagenow="+pagenow+"";
+        })
+        $("#next").click(function(){
+            if(pagenow<pagecount)
+                pagenow++;
+            window.location.href="../html/manager.html?pagenow="+pagenow+"";
+        })
+        $("#last").click(function(){
+            pagenow=pagecount;
+            window.location.href="../html/manager.html?pagenow="+pagenow+"";
+        })
+        if(pagenow==1)
+        {
+            $("#previous")[0].style.display="none";
+            $("#first")[0].style.display="none";
+        }
+
+        if(pagenow>1)
+        {
+            $("#previous")[0].style.display="inline-block";
+            $("#first")[0].style.display="inline-block";
+        }
+
+
+        if(pagenow>=pagecount)
+        {
+            $("#next")[0].style.display="none";
+            $("#last")[0].style.display="none";
+        }
+
+        if(pagenow<pagecount)
+        {
+            $("#next")[0].style.display="inline-block";
+            $("#last")[0].style.display="inline-block";
+        }
+
+        $.ajax(
+                {
+                    url:"../php/managerinformation.php",
+                    dataType:"json",
+                    async:false,
+                    success:function(data) {
+                        var json0 = eval(data);
+                        var x = 0;
+                        for (var i = 0; i < 15; i++)
+                        {
+                            for (var j = 0; j < 6; j++)
+                            {
+                                x = i * 6 + j + 1;
+                                switch (j)
+                                {
+                                    case 0:
+                                        document.getElementById("span"+x+"").innerHTML = json0[i+1].name;
+                                        break;
+                                    case 1:
+                                        document.getElementById("span"+x+"").innerHTML = json0[i+1].num1;
+                                        break;
+                                    case 2:
+                                        document.getElementById("span"+x+"").innerHTML = json0[i+1].num2;
+                                        break;
+                                    case 3:
+                                        document.getElementById("span"+x+"").innerHTML = json0[i+1].team;
+                                        break;
+                                    case 4:
+                                        document.getElementById("span"+x+"").innerHTML = json0[i+1].time;
+                                        break;
+                                    case 5:
+                                    {
+                                        document.getElementById("span"+x+"").innerHTML = json0[i+1].code;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    error:function(err){
+
+                    }
+
+
+                }
+        )
+
+    })
+    var oDiv1 = document.getElementById('div1');
+    function change1()
+    {
+//        var name=prompt("请输入您的名字","xxx"); // 弹出input框
+        oDiv1.style.cssText = 'position:absolute;' +
+                ' top:200px; left:500px; width:500px; ' +
+                'height:400px; z-index:10; display:block;';
+
+    }
+    function  change11()
+    {
+        var getnum=$("#change11").val();
+        if(getnum==1||getnum==2)
+        {
+
+            $.ajax({
+                type:"post",
+                url:"../php/test.php",
+                dataType:"text",
+                async:false,
+                data:{num:getnum},
+                success:function(data)
+                {
+                    if(data==1)
+                    {
+                        alert("添加成功");
+                        window.location.href='../html/manager.html?pagenow=1';
+                    }
+                }
+
+            })
+        }
+    }
+
+
+
+
+</script>
+
+
+</body>
+</html>

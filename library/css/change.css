@@ -1,0 +1,57 @@
+body
+{
+    width: 1200px;
+    margin: 0 auto;
+    height: 1100px;
+    background-image:url(../img/光泡.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+}
+.top
+{
+    width: 100%;
+    height: 100px;
+    background-image: url("../img/光泡.jpg");
+    margin: 0 auto;
+
+}
+#huizhang
+{
+    float: left;
+    line-height: 100px;
+    margin-left: 120px;
+}
+#biaoti
+
+{
+    float: left;
+    font-size: 250%;
+    margin-left: 150px;
+    line-height: 100px;
+}
+.center
+{
+    margin-top: 200px;
+    margin: 0 auto;
+    width: 1200px;
+    height: 1000px;
+    background-image: url("../img/光泡.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+}
+.center>form
+{
+    padding-top: 250px;
+    text-align: center;
+
+}
+#z3
+{
+    margin-right: 40px;
+}
+#zbutton
+{
+    margin-left: 150px;
+}

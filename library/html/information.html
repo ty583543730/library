@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>information</title>
+    <meta charset="UTF-8">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/information.css" rel="stylesheet">
+    <script src="../js/jquery-2.0.3.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/indexjs.js"></script>
+</head>
+<body>
+
+<div class="top">
+
+    <div id="huizhang"><a href="../index.html"><img src="../img/huizhang.png" width="80px" height="80px"></a></div>
+    <div id="biaoti">
+        <span>武汉科技大学图书馆青年志愿者服务队</span>
+    </div>
+
+</div>
+<div class="center">
+<div class="guide">
+    <p>点击图标回主页</p>
+</div>
+
+    <div class="content">
+   <p>亲爱的小伙伴</p>
+    <ul>
+        <li>
+            <span class="span1" >姓名</span>
+            <span class="span2" id="name"></span>
+        </li>
+        <li>
+            <span class="span1">学号</span>
+            <span class="span2" id="num1"></span>
+        </li>
+        <li>
+            <span class="span1">志愿者编号</span>
+            <span class="span2" id="num2"></span>
+        </li>
+        <li>
+            <span class="span1">小队号</span>
+            <span class="span2" id="team"></span>
+        </li>
+        <li>
+            <span class="span1">工时</span>
+            <span class="span2" id="time"></span>
+        </li>
+        <li>
+            <span class="span1">邀请码</span>
+            <span class="span2" id="code"></span>
+        </li>
+    </ul>
+
+</div>
+</div>
+<script>
+
+    $(function(){
+
+        $.ajax({
+                    url:"../php/vipprove.php",
+                    dataType:"text",
+                    async:false,
+                    success:function(data)
+                    {
+                        if(data==1)
+                        {    alert('请登录');
+                            window.location.href='../html/denglu.html';
+                            return false;
+                        }
+                        else
+                        {
+                            $.ajax(
+                                    {
+                                        url:"../php/information.php",
+                                        dataType:"json",
+                                        async:false,
+                                        success:function(data)
+                                        {
+                                            var json0=eval(data);
+                                            document.getElementById('name').innerHTML=json0[0].name;
+                                            document.getElementById('num1').innerHTML=json0[0].num1;
+                                            document.getElementById('num2').innerHTML=json0[0].num2;
+                                            document.getElementById('team').innerHTML=json0[0].team;
+                                            document.getElementById('time').innerHTML=json0[0].time;
+                                            document.getElementById('code').innerHTML=json0[0].code;
+                                        },
+                                        error:function(err)
+                                        {
+                                            alert("error");
+                                        }
+                                    } )
+                        }
+                    }
+                })
+    })
+
+</script>
+
+
+</body>
+</html>

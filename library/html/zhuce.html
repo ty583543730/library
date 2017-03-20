@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/zhucestyle.css" rel="stylesheet">
+    <script src="../js/jquery-2.0.3.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/indexjs.js"></script>
+</head>
+<body>
+
+<div class="center">
+    <div class="left"></div>
+    <div class="right">
+        <form action="" method="post" name="denglu">
+            <div class="information" id="z0">
+                <label id="l0">姓名:</label>
+                <input type="text" id="name0" name="zname0" class="txt" placeholder="姓名">
+            </div>
+            <div class="information" id="z1">
+                <label id="l1">学号:</label>
+                <input type="text" id="name" name="zname" class="txt" placeholder="学号">
+            </div>
+            <div class="information" id="z2">
+                <label id="l2">密码:</label>
+                <input type="text" id="password" name="zpassword" class="txt" placeholder="密码">
+
+            </div>
+            <div class="information" id="z3">
+                <label id="l3">再次输入密码:</label>
+                <input type="text" id="repassword" name="zpassword" class="txt" placeholder="再次输入密码">
+            </div>
+            <div class="information" id="z4">
+                <label id="l4">请输入邀请码:</label>
+                <input type="text" id="invitecode" name="invitecode" class="txt" placeholder="邀请码">
+            </div>
+            <div id="baoming">
+                <a href="../html/baoming.html">志愿者报名</a>
+            </div>
+            <div id="botton">
+                <input type="button" value="注册" id="zbutton" onclick="zhuce()">
+            </div>
+        </form>
+    </div>
+
+</div>
+<script>
+
+
+    function zhuce()
+    {
+        var loginname=$("#name").val();
+        var password=$("#password").val();
+        var repassword=$("#repassword").val();
+        var invitecode=$("#invitecode").val();
+        var name=$("#name0").val();
+
+
+//        alert(loginname);
+//        alert(password);
+//        alert(repassword);
+//        alert(invitecode);
+//        alert(name);
+
+        var myreg2=/^201[0-9]{9}$/;
+        if(!myreg2.test(loginname))
+        {
+            alert("学号要正确哦");
+            window.location.href="../html/zhuce.html";
+            return false;
+        }
+        if (!(/^[\u4e00-\u9fa5]{2,4}$/.test(name)))
+        {
+            alert("姓名必须是正确的哦");
+            window.location.href="../html/zhuce.html";
+            return false;
+        }
+        if (!(/^.{6,12}$/.test(password)))
+        {
+            alert("密码需要6-12位");
+            window.location.href="../html/zhuce.html";
+            return false;
+        }
+        if(repassword=="")
+        {
+            alert("二次密码为空");
+            window.location.href="../html/zhuce.html";
+            return false;
+        }
+        if(invitecode=="")
+        {
+            alert("邀请码为空");
+            window.location.href="../html/zhuce.html";
+            return false;
+        }
+        if(password!=repassword)
+        {
+            alert("两次密码不一致");
+            window.location.href="../html/zhuce.html";
+            return false;
+        }
+
+        $.ajax(
+                {
+
+                    type:"post",
+                    url:"../php/zhuce.php",
+                    dataType:"text",
+                    data:{
+                        name:loginname,password:password,
+                        repassword:repassword,invitecode:invitecode,
+                        name0:name
+                    },
+                    success:function(data)
+                    {
+                            if(data==1)
+                            { alert("注册成功，欢迎加入我们！");
+                                window.location.href="../html/denglu.html";
+                            }
+                        else if(data==2)
+                            alert("该用户已注册");
+                            else if(data==3)
+                                alert("验证码有误");
+                            else if(data==4)
+                                alert("验证码已使用");
+                        else
+                            alert("信息错误");
+
+                    },
+                    error:function(err){
+                        alert("异常");
+                    }
+                }
+        )
+
+
+
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+body
+{
+    width: 1200px;
+    margin: 0 auto;
+    height: 1500px;
+    background-image:url(../img/光泡.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+}
+.top
+{
+    width: 100%;
+    height: 100px;
+    background-image: url("../img/光泡.jpg");
+    margin: 0 auto;
+
+}
+#huizhang
+{
+    float: left;
+    line-height: 100px;
+    margin-left: 120px;
+}
+#biaoti
+
+{
+    float: left;
+    font-size: 250%;
+    margin-left: 150px;
+    line-height: 100px;
+}
+.center>div.guide>p
+{
+    margin-left: 120px;
+    font-size: 100%;
+    font-weight: bold;
+}
+.center
+{
+    height: 1400px;
+    width: 1200px;
+    background-image: url("../img/光泡.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+}
+.center>div.center0
+{   width: 80%;
+    margin: 0 auto;
+    height: 100px;
+
+}
+.center>div.center1
+{
+
+    width: 80%;
+    margin: 0 auto;
+    height: 1000px;
+    background-image: url("../img/服务队介绍.jpg");
+    background-size: 100% 100%;
+    padding-top: 100px;
+}

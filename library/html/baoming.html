@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/baoming.css" rel="stylesheet">
+    <script src="../js/jquery-2.0.3.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/indexjs.js"></script>
+</head>
+<body>
+
+<div class="center">
+    <div class="left"></div>
+    <div class="right">
+        <form action="" method="post" name="denglu">
+            <div class="information" id="z1">
+                <label id="l1">姓名:</label>
+                <input type="text" id="name" name="zname" class="txt" placeholder="姓名">
+            </div>
+            <div class="information" id="z2">
+                <label id="l2">学号:</label>
+                <input type="text" id="num" name="znum" class="txt" placeholder="学号">
+
+            </div>
+            <div class="information" id="z3">
+                <label id="l3">电话号码:</label>
+                <input type="text" id="phone" name="zphone" class="txt" placeholder="电话号码">
+            </div>
+            <div class="information" id="z4">
+                <label id="l4">QQ号码:</label>
+                <input type="text" id="qq" name="qq" class="txt" placeholder="QQ">
+            </div>
+
+            <div id="radio" class="ty">
+              <span>我想当委员</span>  <input type="checkbox" id="radio1">
+            </div>
+            <div id="botton" class="ty">
+                <input type="button" value="确定" id="zbutton" onclick="baoming()">
+            </div>
+        </form>
+    </div>
+
+    </div>
+</body>
+<script>
+
+    function baoming() {
+        var name = $("#name").val();
+        var num = $("#num").val();
+        var phone = $("#phone").val();
+        var qq = $("#qq").val();
+        var check=0;
+        var ischecked=document.getElementById('radio1');
+        if(ischecked.checked)
+           check=1;
+        if (!(/^[\u4e00-\u9fa5]{2,4}$/.test(name))) {
+           alert("姓名必须是汉字哦");
+            window.location.href="../html/baoming.html";
+            return false;
+        }
+        if(qq=="")
+        {
+            alert("qq为空");
+            window.location.href="../html/baoming.html";
+            return false;
+        }
+
+        if(qq.length!=8&&qq.length!=9&&qq.length!=10)
+        {      alert("qq有误")
+            window.location.href="../html/baoming.html";
+            return false;
+        }
+        var myreg1=/^1[3|4|5|7|8][0-9]{9}$/;
+          if(!myreg1.test(phone))
+          {
+              alert("手机号要正确哦");
+              window.location.href="../html/baoming.html";
+              return false;
+          }
+        var myreg2=/^201[0-9]{9}$/;
+        if(!myreg2.test(num))
+        {
+            alert("学号要正确哦");
+            window.location.href="../html/baoming.html";
+            return false;
+        }
+
+        $.ajax({
+
+            type:"post",
+            url:"../php/baoming.php",
+            dataType:"text",
+            data:
+            {
+                 name:name,num:num,phone:phone,qq:qq,check:check
+            },
+            success:function(data)
+            {
+                    if(data==1)
+                    {    alert("报名成功，我们会尽快联系你的");
+                        window.location.href="../index.html";
+            }
+
+                if(data==2)
+                alert("信息错误");
+            }
+
+
+        })
+    }
+
+
+
+</script>
+
+
+
+
+
+
+</html>

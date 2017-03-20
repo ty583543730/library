@@ -1,0 +1,110 @@
+body
+{
+    width: 1200px;
+    margin: 0 auto;
+    height: 1500px;
+    background-image:url(../img/光泡.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+}
+.top
+{
+    width: 100%;
+    height: 100px;
+    background-image: url("../img/光泡.jpg");
+    margin: 0 auto;
+
+}
+#huizhang
+{
+    float: left;
+    line-height: 100px;
+    margin-left: 120px;
+}
+#biaoti
+
+{
+    float: left;
+    font-size: 250%;
+    margin-left: 150px;
+    line-height: 100px;
+}
+.center>div.guide>p
+{
+    margin-left: 120px;
+    font-size: 100%;
+    font-weight: bold;
+}
+.center
+{
+    margin: 0 auto;
+    width: 1200px;
+    height: 1400px;
+    background-image: url("../img/光泡.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+.center>div.center1
+{
+    margin: 0 auto;
+    width: 80%;
+    height: 1000px;
+}
+#list
+{
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    margin-top: 80px;
+}
+#list>li
+{
+    width: 700px;
+    height: 40px;
+    background-image: url("../img/雪绿.jpg");
+    margin: 0 auto;
+    margin-top: 20px;
+    list-style: none;
+    display: block;
+
+}
+#list>li>span
+{
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 50px;
+    text-align: center;
+    float: left;
+}
+
+#li1
+{
+    font-size: large;
+}
+#list>li>span.spanone
+{
+    width: 100px;
+}
+#list>li>span.spantwo
+{
+    width: 100px;
+}
+#list>li>span.spanthree
+{
+    width: 100px;
+}
+#list>li>span.spanfour
+{
+    width: 100px;
+}
+#a
+{
+    text-align: center;
+
+}
+#a>a
+{
+    color: black;
+}

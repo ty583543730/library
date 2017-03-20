@@ -1,0 +1,49 @@
+body
+{
+    background-color: #5bc0de;
+    width: 1600px;
+
+}
+.center
+{
+    margin: 0 auto;
+    width: 60%;
+    height: 500px;
+    background-image: url("../img/denglu2.jpg");
+
+}
+.center>div.left
+{
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+.center>div.right
+{
+    width: 50%;
+    height: 100%;
+    float: left;
+    text-align: center;
+}
+.center>div.right>form
+{
+    margin-top: 270px;
+
+}
+
+#phone
+{
+    margin-right: 25px;
+}
+#qq
+{
+    margin-right: 20px;
+}
+#zbutton
+{
+    margin-left: 50px;
+}
+.center>div.right>form>div.ty
+{
+    display: inline-block;
+}

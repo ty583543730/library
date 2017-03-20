@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>find</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/find.css" rel="stylesheet">
+    <script src="../js/jquery-2.0.3.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/indexjs.js"></script>
+</head>
+<body>
+
+<div class="center">
+    <div class="left"></div>
+    <div class="right">
+        <form action="" method="post" name="denglu">
+            <div class="information" id="z1">
+                <label id="l1">登录名:</label>
+                <input type="text" id="name" name="zname" class="txt" placeholder="用户名">
+            </div>
+            <div class="information" id="z2">
+                <label id="l2">邀请码:</label>
+                <input type="text" id="invitecode" name="zinvitecode" class="txt" placeholder="邀请码">
+
+            </div>
+            <div class="information" id="z3">
+                <label id="l3">新密码:</label>
+                <input type="text" id="password" name="zpassword" class="txt" placeholder="密码">
+
+            </div>
+            <div class="information" id="z4">
+                <label id="l4">再次输入密码:</label>
+                <input type="text" id="repassword" name="zrepassword" class="txt" placeholder="二次密码">
+
+            </div>
+
+            <div id="botton">
+                <input type="button" value="确定" id="zbutton">
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+
+<script>
+    $(function(){
+
+        $("#zbutton").click(function(){
+            var name=$("#name").val();
+            var invitecode=$("#invitecode").val();
+            var password=$("#password").val();
+            var repassword=$("#repassword").val();
+            if(name=="")
+            {
+                alert("用户名为空")
+                history.go(0);
+            }
+            if(invitecode=="")
+            {
+                alert("邀请码为空")
+                history.go(0);
+            }
+            if(password=="")
+            {
+                alert("密码为空")
+                history.go(0);
+            }
+            if(repassword=="")
+            {
+                alert("二次密码为空")
+                history.go(0);
+            }
+            if(password!=repassword)
+            {
+                alert("两次密码不一致");
+                history.go(0);
+            }
+
+            $.ajax({
+
+                type:"post",
+                url:"../php/find.php",
+                dataType:"text",
+                data:{
+                    name:name,password:password,repassword:repassword,invitecode:invitecode
+                },
+                success:function(data)
+                {
+                    if(data==1)
+                    {
+                        alert("修改成功");
+                        window.location.href='denglu.html';
+                    }
+                    else
+                    {
+                        alert("信息有误");
+                        history.go(0);
+                    }
+                }
+
+            })
+
+
+
+
+
+        })
+
+
+    })
+
+
+</script>
+
+</body>
+</html>

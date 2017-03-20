@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>留言板</title>
+    <meta charset="UTF-8">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/leavesstyle.css" rel="stylesheet">
+    <script src="../js/jquery-2.0.3.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/indexjs.js"></script>
+</head>
+<body>
+
+
+
+    <div class="top">
+
+        <div id="huizhang"><a href="../index.html"><img src="../img/huizhang.png" width="80px" height="80px"></a></div>
+        <div id="biaoti">
+            <span>武汉科技大学图书馆青年志愿者服务队</span>
+        </div>
+        </div>
+    <div class="center">
+    <div class="guide">
+        <p>点击图标回主页</p>
+    </div>
+
+
+
+<div class="center1">
+
+    <div id="leave">
+        <form>
+              <textarea id="neirong" placeholder="请留言"></textarea>
+            <input type="button" value="确定" id="zbutton">
+        </form>
+    </div>
+
+
+    <div id="list">
+        <ul>
+            <li>
+                <span id="span1" class="span1"></span>
+                <span id="span11" class="span2"></span>
+                <span id="num1" class="num">0</span>
+                <a href="" onclick="deletes(this.id)" id="a1" class="a">删除</a>
+            </li>
+            <li>
+                <span id="span2" class="span1"></span>
+                <span id="span22" class="span2"></span>
+                <span id="num2" class="num">0</span>
+                <a href="" onclick="deletes(this.id)" id="a2" class="a">删除</a>
+            </li>
+            <li>
+                <span id="span3" class="span1"></span>
+                <span id="span33" class="span2"></span>
+                <span id="num3" class="num">0</span>
+                <a href="" onclick="deletes(this.id)" id="a3" class="a">删除</a>
+            </li>
+            <li>
+                <span id="span4" class="span1"></span>
+                <span id="span44" class="span2"></span>
+                <span id="num4" class="num">0</span>
+                <a href="" onclick="deletes(this.id)" id="a4" class="a">删除</a>
+            </li>
+            <li>
+                <span id="span5" class="span1"></span>
+                <span id="span55" class="span2"></span>
+                <span id="num5" class="num">0</span>
+                <a href="" onclick="deletes(this.id)" id="a5" class="a">删除</a>
+            </li>
+
+        <div id="a">
+            <a id="first" href="#">首页</a>
+            <a id="previous" href="#" >上一页</a>
+            <a id="next"  href="#">下一页</a>
+            <a id="last" href="#">尾页</a>
+        </div>
+        </ul>
+    </div>
+</div>
+    </div>
+</body>
+
+</html>
+<script>
+    var isvip=0;
+
+
+
+    $.ajax({
+
+                url:"../php/managerprove.php",
+                dataType:"text",
+                async:false,
+                success:function(data)
+                {
+                    if(data==1)
+                    {
+                        isvip=1;
+                    }
+                }
+            }
+
+    )
+    $(function(){
+
+        var pagecount=0;
+        function GetQueryString(name)
+
+        {
+
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+
+            var r = window.location.search.substr(1).match(reg);
+
+            if(r!=null)return  unescape(r[2]); return null;
+
+        }
+
+        var myurl=GetQueryString("pagenow");
+
+        if(myurl !=null && myurl.toString().length>=1)
+
+        {
+
+            var pagenow=(GetQueryString("pagenow"));
+
+        }
+        else
+        {
+            window.location.href='../html/leaves.html?pagenow=1';
+        }
+
+        $.ajax({
+            url:"../php/prove.php",
+            dataType:"text",
+            async:false,
+            success:function(data){
+                  pagecount=data;
+
+            },
+            error:function(err){
+
+            }
+        })
+        $("#first").click(function(){
+
+            window.location.href='../html/leaves.html?pagenow=1';
+        })
+        $("#previous").click(function(){
+            if(pagenow>1)
+            pagenow--;
+            window.location.href="../html/leaves.html?pagenow="+pagenow+"";
+        })
+        $("#next").click(function(){
+            if(pagenow<pagecount)
+            pagenow++;
+            window.location.href="../html/leaves.html?pagenow="+pagenow+"";
+        })
+        $("#last").click(function(){
+            pagenow=pagecount;
+            window.location.href="../html/leaves.html?pagenow="+pagenow+"";
+        })
+
+
+        $("#zbutton").click(function(){
+
+
+            $.ajax({
+
+                        url:"../php/vipprove.php",
+                        dataType:"text",
+                        async:false,
+                        success:function(data)
+                        {
+                            if(data==1)
+                            {    alert('请登录');
+                                window.location.href='../html/denglu.html';
+                                return false;
+                            }
+
+                        }
+                    }
+
+            )
+            var content=$("#neirong").val();
+
+            $.ajax(
+                    {
+                        type:"post",
+                        url:"../php/leaves.php",
+                        dataType:"text",
+                        data:{leave:content},
+                        success:function(data)
+                        {
+                                  if (data==1)
+                                  alert("添加成功");
+                            window.location.href="../html/leaves.html?pagenow=1";
+                        },
+                        error:function(err)
+                        {
+
+                        }
+                    }
+            )
+
+
+        })
+
+
+        if(pagenow==1)
+        {
+            $("#previous")[0].style.display="none";
+            $("#first")[0].style.display="none";
+        }
+
+        if(pagenow>1)
+        {
+            $("#previous")[0].style.display="inline-block";
+            $("#first")[0].style.display="inline-block";
+        }
+
+
+        if(pagenow>=pagecount)
+        {
+            $("#next")[0].style.display="none";
+            $("#last")[0].style.display="none";
+        }
+
+        if(pagenow<pagecount)
+        {
+            $("#next")[0].style.display="inline-block";
+            $("#last")[0].style.display="inline-block";
+        }
+        $.ajax({
+            type:"post",
+            url:"../php/list.php",
+            dataType:"json",
+            async: false,
+            data:{page:pagenow},
+            success:function(data)
+            {
+                 var json0=eval(data);
+                document.getElementById('span1').innerHTML=json0[0].content;
+                document.getElementById('span11').innerHTML=json0[0].name;
+                document.getElementById('num1').innerHTML=json0[0].id;
+                document.getElementById('span2').innerHTML=json0[1].content;
+                document.getElementById('span22').innerHTML=json0[1].name;
+                document.getElementById('num2').innerHTML=json0[1].id;
+                document.getElementById('span3').innerHTML=json0[2].content;
+                document.getElementById('span33').innerHTML=json0[2].name;
+                document.getElementById('num3').innerHTML=json0[2].id;
+                document.getElementById('span4').innerHTML=json0[3].content;
+                document.getElementById('span44').innerHTML=json0[3].name;
+                document.getElementById('num4').innerHTML=json0[3].id;
+                document.getElementById('span5').innerHTML=json0[4].content;
+                document.getElementById('span55').innerHTML=json0[4].name;
+                document.getElementById('num5').innerHTML=json0[4].id;
+            }
+        })
+    })
+    function getNum(text){
+        var value = text.replace(/[^0-9]/ig,"");
+        return value;
+    }
+    function deletes(id)
+    {
+          var num=getNum(id);
+//        alert(num);
+        var leavenum=document.getElementById("num"+num+"").innerHTML;
+//        alert(leavenum);
+
+        $.ajax({
+            type:"post",
+            url:"../php/delete.php",
+            dataType:"text",
+            async:false,
+            data:{leavenum:leavenum},
+            success:function(data)
+            {
+                   if(data==1)
+                   alert("删除成功");
+            }
+        })
+    }
+    if(isvip==1)
+    {
+//        document.getElementById("a1").style.display="inline-block";
+        var x=  document.getElementsByClassName("num");
+        for(var i=0;i< x.length;i++)
+        {
+            x[i].style.display="inline-block";
+        }
+        var y=  document.getElementsByClassName("a");
+        for(var j=0;j< y.length;j++)
+        {
+
+            y[j].style.display="inline-block";
+        }
+
+//        document.getElementsByClassName("a").style.display="block";
+//        $(".num").style.display="blcok";
+//        $(".a").style.display="blcok";
+
+
+    }
+
+
+
+</script>
+
+

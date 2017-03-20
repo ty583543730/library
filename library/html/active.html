@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>出勤率</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/active.css" rel="stylesheet">
+    <script src="../js/jquery-2.0.3.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/indexjs.js"></script>
+</head>
+<body>
+
+
+<div class="top">
+
+    <div id="huizhang"><a href="../index.html"><img src="../img/huizhang.png" width="80px" height="80px"></a></div>
+    <div id="biaoti">
+        <span>武汉科技大学图书馆青年志愿者服务队</span>
+    </div>
+</div>
+
+<div class="center">
+    <div class="guide">
+    <p>点击图标回主页</p>
+</div>
+    <div id="change">
+        <a href="#" id="change01" onclick="change1()">出勤率修改</a>
+        <a href="#" id="change02" onclick="change2()">出勤率修改</a>
+        <a href="#" id="lead01" onclick="lead()">点击选择周数</a>
+    </div>
+
+
+    <div id="list">
+        <div id="lead">
+            <p id="week">当前周数:1</p>
+        </div>
+        <li id="li1">
+            <span class="spanone">小队</span>
+            <span class="spantwo">实到人数</span>
+            <span class="spanthree">应到人数</span>
+            <span class="spanfour">出勤率</span>
+        </li>
+    </div>
+
+</div>
+
+<div id="div1" style="display:none;">
+    <textarea id="change11" style="width: 200px;height: 100px;" placeholder="输入出勤率信息(实到人数/应到人数/第几周  以除号分隔)"></textarea>
+    <input type="button" id="changebutton1" style="width:40px; height:30px;" value="确定" onclick="change11()">
+</div>
+
+<div id="div2" style="display:none;">
+    <textarea id="change22" style="width: 200px;height: 100px;" placeholder="输入出勤率信息(实到人数/应到人数/第几周/小队号  以除号分隔)"></textarea>
+    <input type="button" id="changebutton2" style="width:40px; height:30px;" value="确定" onclick="change22()">
+</div>
+<div id="div3" style="display:none;">
+    <textarea id="change33" style="width: 200px;height: 100px;" placeholder="输入查询周数"></textarea>
+    <input type="button" id="changebutton3" style="width:40px; height:30px;" value="确定" onclick="change33()">
+</div>
+
+</body>
+<script>
+
+    $.ajax({
+        url:"../php/managerprove.php",
+        dataType:"text",
+        success:function(data)
+        {
+
+            if(data==1)
+            {
+                document.getElementById("change01").style.display="none";
+            }
+            else  if(data==2)
+            {
+                document.getElementById("change02").style.display="none";
+
+            }
+
+            else
+            {
+                document.getElementById("change01").style.display="none";
+                document.getElementById("change02").style.display="none";
+            }
+
+        },
+        error:function(err)
+        {
+
+        }
+    })
+
+
+
+var x=0;
+var str="";
+for(var i=0;i<18;i++)
+{   str+="<li>";
+    for(var j=0;j<4;j++)
+    {   x=i*4+j+1;
+    switch (j)
+    {
+    case 0:
+    str+="<span id='span"+x+"' class='spanone'></span>"
+    break;
+    case 1:
+    str+="<span id='span"+x+"' class='spantwo'></span>"
+    break;
+    case 2:
+    str+="<span id='span"+x+"' class='spanthree'></span>"
+    break;
+    case 3:
+    {
+    str+="<span id='span"+x+"' class='spanfour'></span>"
+    str+="</li>"
+     break;
+    }
+    }
+     }
+}
+$("#list").append(str);
+
+$.ajax({
+    type:"post",
+    url:"../php/active.php",
+    dataType:"json",
+    data:{},
+    async:false,
+    success:function(data){
+    }
+})
+var oDiv1 = document.getElementById('div1');
+function change1()
+{
+//        var name=prompt("请输入您的名字","xxx"); // 弹出input框
+    oDiv1.style.cssText = 'position:absolute;' +
+            ' top:200px; left:500px; width:500px; ' +
+            'height:400px; z-index:10; display:block;';
+
+}
+
+function change11()
+{
+    var text1=$("#change11").val();
+    $.ajax({
+        type:"post",
+        url:"../php/changeactive.php",
+        dataType:"text",
+        data:{text1:text1},
+        async:"false",
+        success:function(data)
+        {
+            if(data==1)
+                alert("修改成功");
+            window.location.href="../html/active.html";
+        }
+
+    })
+}
+
+var oDiv2 = document.getElementById('div2');
+function change2()
+{
+//        var name=prompt("请输入您的名字","xxx"); // 弹出input框
+    oDiv2.style.cssText = 'position:absolute;' +
+            ' top:200px; left:500px; width:500px; ' +
+            'height:400px; z-index:10; display:block;';
+
+}
+function change22()
+{
+    var text2=$("#change22").val();
+    $.ajax({
+        type:"post",
+        url:"../php/changeactive1.php",
+        dataType:"text",
+        data:{text2:text2},
+        async:"false",
+        success:function(data)
+        {
+            if(data==1)
+                alert("修改成功");
+            window.location.href="../html/active.html";
+        }
+    })
+
+
+}
+var oDiv3 = document.getElementById('div3');
+function lead()
+{
+//        var name=prompt("请输入您的名字","xxx"); // 弹出input框
+    oDiv3.style.cssText = 'position:absolute;' +
+            ' top:200px; left:500px; width:500px; ' +
+            'height:400px; z-index:10; display:block;';
+
+}
+function change33()
+{
+    var text3=$("#change33").val();
+    $.ajax({
+        type:"post",
+        url:"../php/active1.php",
+        data:{text3:text3},
+        dataType:"text",
+        async:"false",
+        success:function(data)
+        {
+           window.location.href="../html/active.html";
+        }
+    })
+
+
+}
+
+$.ajax({
+    url:"../php/active2.php",
+    dataType:"text",
+    async:"false",
+    success:function(data) {
+        document.getElementById('week').innerHTML="当前周数:"+data+"";
+
+    }
+
+
+    })
+
+
+$.ajax({
+    url:"../php/active.php",
+    dataType:"text",
+    async:"false",
+    success:function(data) {
+
+        var json0 = eval(data);
+        var x = 0;
+        for (var i = 1; i <= 18; i++) {
+            for (var j = 0; j < 4; j++) {
+                x = (i - 1) * 4 + j + 1;
+                switch (j) {
+                    case 0:
+                        document.getElementById("span" + x + "").innerHTML = json0[i][3];
+                        break;
+                    case 1:
+                        document.getElementById("span" + x + "").innerHTML = json0[i][0];
+                        break;
+                    case 2:
+                        document.getElementById("span" + x + "").innerHTML = json0[i][1];
+                        break;
+                    case 3:
+                    {
+                        document.getElementById("span" + x + "").innerHTML = json0[i][2];
+                        break;
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
+})
+
+
+</script>
+</html>

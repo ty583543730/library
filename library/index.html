@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>武汉科技大学图书馆青年志愿者服务队</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/indexstyle.css" rel="stylesheet">
+    <script src="js/jquery-2.0.3.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/indexjs.js"></script>
+</head>
+<body>
+<script>
+
+    function logout()
+    {
+        $.ajax({
+            url:"php/logout.php",
+            dataType:"text",
+            success:function(data)
+            {
+                if(data==1)
+                {
+                    document.getElementById("denglu").innerHTML=登录;
+                    document.getElementById("zhuce").style.display="block";
+                    document.getElementById("exchange").style.display="none";
+                    document.getElementById("logout").style.display="none";
+                    window.location.href="index.html";
+                }
+            }
+        })
+    }
+
+
+    $(function(){
+        $.ajax({
+                    url: "php/vipprove.php",
+                    dataType: "text",
+                    success: function (data) {
+                        if (data != 1) {
+
+                            var name = data;
+//                     alert(name);
+                            document.getElementById("denglu").innerHTML = name;
+                            document.getElementById("zhuce").style.display = "none";
+                            document.getElementById("exchange").style.display = "inline";
+                            document.getElementById("logout").style.display = "inline";
+                        }
+                    }
+                }
+        )
+        $.ajax({
+            url:"php/managerprove.php",
+            dataType:"text",
+            success:function(data)
+            {
+                         if(data==1)
+                         {
+                             document.getElementById("manager").style.display="block";
+                             document.getElementById("change1").style.display="block";
+                             document.getElementById("change2").style.display="block";
+
+                         }
+                else  if(data==2)
+                         {
+                             document.getElementById("manager").style.display="block";
+                             document.getElementById("change1").style.display="none";
+                             document.getElementById("change2").style.display="none";
+                         }
+
+                else
+                         {
+                             document.getElementById("manager").style.display="none";
+                             document.getElementById("change1").style.display="none";
+                             document.getElementById("change2").style.display="none";
+                         }
+
+            },
+            error:function(err)
+            {
+
+            }
+        })
+//        $.ajax({
+//            url:"php/content.php",
+//            dataType:"text",
+//            success:function(data)
+//            {
+//                if(data==1)
+//                    document.getElementById("manager").style.display="block";
+//                else
+//                    document.getElementById("manager").style.display="none";
+//            },
+//            error:function(err)
+//            {
+//
+//            }
+//        })
+
+        $.ajax({
+
+                    type:"post",
+                    url: "php/getcontent.php",
+                    dataType: "json",
+                    success: function (data) {
+
+                          var json0=eval(data);
+//                     alert(name);
+                            document.getElementById("gonggao1").innerHTML = json0['text1'];
+                            document.getElementById("huodong1").innerHTML = json0['text2'];
+
+                    }
+                }
+        )
+
+
+    })
+
+
+</script>
+<div class="top">
+
+    <div id="huizhang"><a href="index.html"><img src="img/huizhang.png" width="80px" height="80px"></a></div>
+    <div id="biaoti">
+        <span>武汉科技大学图书馆青年志愿者服务队</span>
+    </div>
+    <div id="denglu"><a href="html/denglu.html">登陆</a></div>
+    <div id="zhuce"><a href="html/zhuce.html">注册</a></div>
+    <a  href="php/logout.php" id="exchange"  onclick= "exchange()"  style="display: none;">用户切换</a>
+    <a href=""  id="logout"   onclick="logout()" style="display: none;">注销</a>
+</div>
+
+<div class="center">
+    <div id="guide">
+
+        <ul>
+            <li id="li1" class="shouye"><a href="index.html">首页</a></li>
+            <li class="shouye"><a href="html/fuwudui.html">服务队介绍</a></li>
+            <li class="shouye"><a href="html/fengcai.html">部门风采</a></li>
+            <li class="shouye"><a href="html/mytx.html">我的图协</a></li>
+            <li class="shouye"><a href="html/active.html">小队出勤率</a></li>
+            <li class="shouye"><a href="html/information.html">个人信息</a></li>
+            <li class="shouye"><a href="html/leaves.html?pagenow=1">留言板</a></li>
+            <li class="shouye" id="manager"><a href="html/manager.html?pagenow=1">信息管理</a></li>
+        </ul>
+    </div>
+    <div class="left" id="gonggao" >
+        <div class="head">公告</div>
+        <span id="gonggao1"></span>
+        <a id="change1" onclick="change1()" href="#">公告修改</a>
+    </div>
+    <div id="div2" style="display:none;">
+        <textarea id="change22" style="width: 400px;height: 200px;" placeholder="输入活动预告信息"></textarea>
+        <input type="button" id="changebutton2" style="width:40px; height:30px;" value="确定" onclick="change22()">
+    </div>
+    <div id="div1" style="display:none;">
+        <textarea id="change11" style="width: 400px;height: 200px;" placeholder="输入公告信息"></textarea>
+        <input type="button" id="changebutton1" style="width:40px; height:30px;" value="确定" onclick="change11()">
+    </div>
+    <script>
+        var i=0;
+        $(function () {
+
+
+        })
+        $("#gonggao").click(function()
+        {
+            i++;
+            if(i%2!=0)
+            $("#gonggao").animate({
+                left:'500px'
+
+//                height:'+=150px',
+//                width:'+=150px'
+            });
+            else
+            {
+                $("#gonggao").animate({
+                left:'0px'
+
+//                height:'+=150px',
+//                width:'+=150px'
+            });
+
+            }
+
+        });
+
+    </script>
+    <div class="content">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+        <!-- 轮播（Carousel）指标 -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+            <li data-target="#myCarousel" data-slide-to="4"></li>
+            <li data-target="#myCarousel" data-slide-to="5"></li>
+        </ol>
+        <!-- 轮播（Carousel）项目 -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="img/D.jpg" alt="First slide">
+            </div>
+            <div class="item">
+                <img src="img/I1.jpg" alt="Second slide">
+            </div>
+            <div class="item">
+                <img src="img/F.jpg" alt="Third slide">
+            </div>
+            <div class="item">
+                <img src="img/K1.jpg" alt="Forth slide">
+            </div>
+            <div class="item">
+                <img src="img/E.jpg" alt="Fifth slide">
+            </div>
+            <div class="item">
+                <img src="img/J.jpg" alt="Sixth slide">
+            </div>
+        </div>
+        <!-- 轮播（Carousel）导航 -->
+        <a class="carousel-control left" href="#myCarousel"
+           data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#myCarousel"
+           data-slide="next">&rsaquo;</a>
+    </div>
+    </div>
+
+    <div class="right" id="huodong">
+        <p>活动预告</p>
+        <span id="huodong1"></span>
+        <a id="change2" onclick="change2()" href="#">活动修改</a>
+        </div>
+    </div>
+<script>
+
+    var j=0;
+    $("#huodong").click(function()
+    {
+        j++;
+        if(j%2!=0)
+            $("#huodong").animate({
+                right:'500px'
+
+//                height:'+=150px',
+//                width:'+=150px'
+            });
+        else
+        {
+            $("#huodong").animate({
+                right:'0px'
+
+//                height:'+=150px',
+//                width:'+=150px'
+            });
+
+        }
+
+    });
+    var oDiv1 = document.getElementById('div1');
+    function change1()
+    {
+//        var name=prompt("请输入您的名字","xxx"); // 弹出input框
+        oDiv1.style.cssText = 'position:absolute;' +
+                ' top:200px; left:500px; width:500px; ' +
+                'height:400px; z-index:10; display:block;';
+
+    }
+    function change11()
+    {
+        var text1=$("#change11").val();
+        $.ajax({
+            type:"post",
+            url:"php/content.php",
+            dataType:"text",
+            data:{text1:text1},
+            async:"false",
+            success:function(data)
+            {
+                if(data==1)
+                    alert("修改成功");
+                window.location.href="index.html";
+            }
+
+        })
+    }
+
+    var oDiv2 = document.getElementById('div2');
+    function change2()
+    {
+//        var name=prompt("请输入您的名字","xxx"); // 弹出input框
+        oDiv2.style.cssText = 'position:absolute;' +
+                ' top:200px; left:500px; width:500px; ' +
+                'height:400px; z-index:10; display:block;';
+
+    }
+    function change22()
+    {
+        var text2=$("#change22").val();
+        $.ajax({
+            type:"post",
+            url:"php/content.php",
+            dataType:"text",
+            data:{text2:text2},
+            async:"false",
+            success:function(data)
+            {
+                   if(data==1)
+                   alert("修改成功");
+                window.location.href="index.html";
+            }
+        })
+
+
+    }
+
+
+</script>
+
+
+
+</body>
+</html>

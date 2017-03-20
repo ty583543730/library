@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>change</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/change.css" rel="stylesheet">
+    <script src="../js/jquery-2.0.3.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/indexjs.js"></script>
+</head>
+<body>
+
+
+<div class="top">
+
+    <div id="huizhang"><a href="../index.html"><img src="../img/huizhang.png" width="80px" height="80px"></a></div>
+    <div id="biaoti">
+        <span>武汉科技大学图书馆青年志愿者服务队</span>
+    </div>
+</div>
+
+<div class="center">
+
+    <form>
+        <div class="information" id="z1">
+            <label id="l1">姓名</label>
+            <input type="text" id="name" name="zname" placeholder="姓名">
+        </div>
+        <div class="information" id="z2">
+            <label id="l2">学号</label>
+            <input type="text" id="num1" name="zname" placeholder="学号">
+        </div>
+        <div class="information" id="z3">
+            <label id="l3">志愿者编号</label>
+            <input type="text" id="num2" name="zname" placeholder="志愿者编号">
+        </div>
+        <div class="information" id="z4">
+            <label id="l4">小队</label>
+            <input type="text" id="team" name="zname" placeholder="小队">
+        </div>
+        <div class="information" id="z5">
+            <label id="l5">工时</label>
+            <input type="text" id="time" name="zname" placeholder="工时">
+        </div>
+        <div id="botton">
+            <input type="button" value="确定" id="zbutton" onclick="change()">
+        </div>
+    </form>
+</div>
+<script>
+
+    var vip=0;
+    $(function(){
+
+        $.ajax({
+
+                    url:"../php/managerprove.php",
+                    dataType:"text",
+                    async:false,
+                    success:function(data)
+                    {
+
+                        if(data==0)
+                        {    alert('请登录');
+                            window.location.href='../html/denglu.html';
+                            return false;
+                        }
+                        else if(data==1)
+                        {
+                            vip=1;
+                        }
+                        else
+                        {
+                           vip=2;
+                        }
+
+                    }
+                }
+        )
+
+})
+
+
+    function  change()
+    {
+
+        var name=$("#name").val();
+        var num1=$("#num1").val();
+        var num2=$("#num2").val();
+        var team=$("#team").val();
+        var time=$("#time").val();
+        var myreg2=/^201[0-9]{9}$/;
+        if(!myreg2.test(num1))
+        {
+            alert("学号要正确哦");
+            window.location.href="change.html";
+            return false;
+        }
+        if(name!="")
+        {
+            if (!(/^[\u4e00-\u9fa5]{2,4}$/.test(name)))
+            {
+                alert("姓名必须是正确的哦");
+                window.location.href="change.html";
+                return false;
+            }
+        }
+
+//        alert(name);
+//        alert(num1);
+//        alert(num2);
+//        alert(team);
+//        alert(time);
+//        alert(vip);
+
+        $.ajax({
+            type:"post",
+            url:"../php/change.php",
+            dataType:"text",
+            data:{
+                name:name,num1:num1,num2:num2,team:team,time:time,vip:vip
+            },
+            success:function(data)
+
+            {
+
+                if(data==1)
+                {
+                    alert("修改成功");
+                }
+                else if(data==10)
+                {
+                    alert("你没有权限");
+                }
+                else
+                {
+                   alert("信息错误");
+                }
+            }
+        })
+
+    }
+
+
+</script>
+
+
+</body>
+</html>

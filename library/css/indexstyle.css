@@ -1,0 +1,191 @@
+*{margin: 0;padding: 0;font-family:"微软雅黑";}
+
+
+
+body
+{
+    width: 1200px;
+    margin: 0 auto;
+    background-image:url(../img/光泡.jpg ) ;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+}
+.top
+{
+      width: 100%;
+    height: 100px;
+background-image: url("../img/光泡.jpg");
+    margin: 0 auto;
+
+}
+#huizhang
+{
+    float: left;
+    line-height: 100px;
+    margin-left: 120px;
+}
+#biaoti
+
+{
+    float: left;
+    font-size: 250%;
+    margin-left: 150px;
+    line-height: 100px;
+}
+#denglu
+{
+    float: left;
+    line-height: 100px;
+    margin-left: 30px;
+}
+#denglu>a,#zhuce>a
+{
+    color: black;
+}
+.top>a
+{
+    line-height: 100px;
+    float: left;
+    margin-left: 10px;
+}
+
+#zhuce
+
+{
+    float: left;
+    line-height: 100px;
+    color: black;
+}
+
+
+#guide
+{    margin-top: -10px;
+    width: 1200px;
+    height: 40px;
+    background-image: url("../img/绿色.jpg");
+
+}
+#guide>ul>li
+{
+    width: 12%;
+    height: 40px;
+    line-height: 40px;
+    float: left;
+    list-style: none;
+
+
+}
+#li1
+{
+    margin-left: 3%;
+}
+#guide>ul>li>a
+{
+    display: inline-block;
+    width: 80%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #080808;
+    text-decoration: none;
+
+}
+#guide>ul>li>a:hover
+{
+    background-color: red;
+}
+.center
+{
+    height: 1200px;
+    width: 1200px;
+    background-image: url("../img/光泡.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+}
+.center>div.left
+{
+    display: inline;
+    float: left;
+    width: 240px;
+    height: 485px;
+    position: relative;
+    z-index: 10;
+}
+.center>div.content
+{
+    float: left;
+    width: 720px;
+    height: 485px;
+}
+#myCarousel>a
+{
+    line-height: 485px;
+    font-size: 300%;
+}
+.center>div.left>div.head
+{
+    width: 100%;
+    height: 10%;
+    background-color: #4cae4c;
+    font-size: 200%;
+
+    text-align: center;
+}
+.center>div.left>span
+{
+    width: 100%;
+    height: 90%;
+    background-image: url("../img/雪绿.jpg");
+    display: inline-block;
+
+}
+.center>div.right
+{
+    display: inline;
+    float: left;
+    width: 240px;
+    height: 485px;
+    position: relative;
+}
+.center>div.right>p
+{
+    width: 100%;
+    height: 10%;
+    background-color: #2b542c;
+    font-size: 200%;
+    text-align: center;
+    margin: 0px;
+}
+.center>div.right>span
+{
+    width: 100%;
+    height: 90%;
+    background-image: url("../img/渐变方格.jpg");
+    display: inline-block;
+
+}
+.center>div.right>a
+{
+    color:black;
+    text-decoration: none;
+    float: right;
+    display: none;
+}
+.center>div.left>a
+{
+    color:black;
+    text-decoration: none;
+    float: left;
+    display: none;
+}
+#myCarousel
+{
+    height: 485px;
+}
+#myCarousel>ol>li
+{
+    position: relative;
+    margin-bottom: 40px;
+}

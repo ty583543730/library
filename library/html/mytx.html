@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的图协</title>
+
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/mytx.css" rel="stylesheet">
+    <script src="../js/jquery-2.0.3.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/indexjs.js"></script>
+</head>
+<body>
+
+
+<div class="top">
+
+    <div id="huizhang"><a href="../index.html"><img src="../img/huizhang.png" width="80px" height="80px"></a></div>
+    <div id="biaoti">
+        <span>武汉科技大学图书馆青年志愿者服务队</span>
+    </div>
+
+</div>
+
+<div id="div1" style="display:none;">
+    <textarea id="delete1" style="width: 200px;height: 80px;" placeholder="输入想要删除的照片序号"></textarea>
+    <input type="button" id="changebutton1" style="width:40px; height:30px;" value="确定" onclick="deleteone()">
+</div>
+<div id="div2" style="display:none;">
+    <form action="../php/doupload1.php" method="post" enctype="multipart/form-data">
+    <input type="file" name="myfile">
+        <textarea id="textarea" class="textarea1" name="textarea2" placeholder="请填写照片介绍"
+        ></textarea>
+    <input type="submit" id="submit" style="width:40px; height:30px;" value="确定">
+    </form>
+</div>
+<div class="center">
+    <div class="guide">
+    <p>点击图标回主页</p>
+    <a href="#" id="shanchu" onclick="deletes()">照片删除</a>
+    <a href="#" id="shangchuan" onclick="add()">照片上传</a>
+</div>
+    <div class="center1">
+<ul id="ul">
+    <!--<li><p>招新</p>-->
+        <!--<img src="../img/tx17.jpg" width="854" height="640"> </li>-->
+    <!--<li><p>管院篮球友谊赛1</p><img src="../img/tx1.jpg" width="854" height="640"> </li>-->
+    <!--<li><p>篮球赛2</p><img src="../img/tx2.jpg" width="854" height="640"> </li>-->
+    <!--<li><p>培智志愿活动</p><img src="../img/tx3.jpg" width="854" height="640"> </li>-->
+    <!--<li><p>计算机学院联谊</p><img src="../img/tx5.jpg" width="854" height="640"> </li>-->
+    <!--<li><p>家庭聚会</p><img src="../img/tx6.jpg" width="854" height="640"> </li>-->
+    <!--<li><p>见面会</p><img src="../img/tx7.jpg" width="854" height="640"> </li>-->
+    <!--<li><p>第一次全体大会1</p><img src="../img/tx8.jpg" width="854" height="640"> </li>-->
+    <!--<li><p>第一次全体大会2</p><img src="../img/tx9.jpg" width="854" height="640"> </li>-->
+    <!--<li><p>入馆教育</p><img src="../img/tx10.jpg" width="854" height="640"> </li>-->
+    <!--<li><p>4.23世界读书日1</p><img src="../img/tx11.jpg" width="854" height="640"> </li>-->
+    <!--<li><p>4.23世界读书日2</p><img src="../img/tx12.jpg" width="854" height="640"> </li>-->
+    <!--<li><p>考研交流会</p><img src="../img/tx13.jpg" width="854" height="640"> </li>-->
+    <!--<li><p>真人图书馆1</p><img src="../img/tx15.jpg" width="854" height="640"> </li>-->
+    <!--<li><p>真人图书馆2</p><img src="../img/tx16.jpg" width="854" height="640"> </li>-->
+
+</ul>
+</div>
+<div class="foot">
+
+</div>
+</div>
+<script>
+    var num=0;
+    $(function(){
+        var str="";
+        $.ajax({
+            url:"../php/image.php",
+            dataType:"json",
+            async:false,
+            success:function(data)
+            {
+                  var json0=eval(data);
+                 num=json0.length;
+                for(var i=0;i<json0.length;i++)
+                {
+                    str+="<li><p>"+json0[i].id+".   "+json0[i].content+"</p><img src='"+json0[i].img+"'" +
+                            " width='854' height='640'></li>";
+                }
+
+                  $("#ul").append(str);
+            }
+
+
+        })
+
+        $.ajax({
+            url: "../php/managerprove.php",
+            dataType: "text",
+            async: false,
+            success: function (data) {
+                if (data != 1) {
+
+                    document.getElementById("shanchu").style.display="none";
+                    document.getElementById("shangchuan").style.display="none";
+                }
+            }
+        })
+    })
+    var oDiv1 = document.getElementById('div1');
+    function deletes()
+    {
+//        var name=prompt("请输入您的名字","xxx"); // 弹出input框
+        oDiv1.style.cssText = 'position:absolute;' +
+                ' top:200px; left:500px; width:500px; ' +
+                'height:400px; z-index:10; display:block;';
+
+    }
+
+    var oDiv2 = document.getElementById('div2');
+    function add()
+    {
+//        var name=prompt("请输入您的名字","xxx"); // 弹出input框
+        oDiv2.style.cssText = 'position:absolute;' +
+                ' top:200px; left:500px; width:300px; ' +
+                'height:150px; z-index:10;background-color:white; display:block;';
+
+    }
+
+
+    function deleteone()
+    {
+        var deletenum=$("#delete1").val();
+        if(deletenum<=0||deletenum>num||isNaN(deletenum))
+        {
+            alert("不存在该序号");
+            window.location.href="mytx.html";
+        }
+
+        $.ajax({
+            type:"post",
+            url:"../php/deleteimg.php",
+            dataType:"text",
+            data:{deletenum:deletenum},
+            async:false,
+            success:function(data)
+            {
+                      if(data==1)
+                      {
+                          alert("删除成功");
+                          window.location.href="mytx.html";
+                      }
+            }
+
+
+
+
+        })
+    }
+
+
+
+
+
+
+</script>
+</body>
+</html>

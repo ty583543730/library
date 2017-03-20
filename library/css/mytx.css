@@ -1,0 +1,109 @@
+body
+{
+    width: 1200px;
+    margin: 0 auto;
+    height: auto;
+    background-image:url(../img/光泡.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+}
+.top
+{
+    width: 100%;
+    height: 100px;
+    background-image: url("../img/光泡.jpg");
+    margin: 0 auto;
+
+}
+#huizhang
+{
+    float: left;
+    line-height: 100px;
+    margin-left: 120px;
+}
+#biaoti
+
+{
+    float: left;
+    font-size: 250%;
+    margin-left: 150px;
+    line-height: 100px;
+}
+
+.center>div.guide>p
+{
+    margin-left: 120px;
+    font-size: 100%;
+    font-weight: bold;
+    display: inline-block;
+}
+.center>div.guide>a
+{
+    color:black;
+    display: inline-block;
+    margin-left: 20px;
+}
+.center
+{
+    width: 100%;
+    height: auto;
+    margin:0 auto;
+    background-image: url("../img/光泡.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    /*overflow:hidden*/
+}
+
+.center>div.center1
+{
+    width: 80%;
+    height: auto;
+    margin:0 auto;
+    background-image: url("../img/光泡.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    /*overflow:hidden*/
+}
+.center>div.foot
+{
+    width: 80%;
+    height: 100px;
+    margin:0 auto;
+    background-color: #5bc0de;
+    margin-top: -20px;
+    /*overflow:hidden*/
+}
+.center>div.center1>ul>li
+{
+    list-style: none;
+    width: 854px;
+    height: 640px;
+    margin-top: 40px;
+
+}
+.center>div.center1>ul>li>p
+{
+    font-size: 120%;
+    font-weight: bold;
+}
+#div2>form
+{
+    height: 100%;
+    width: 100%;
+}
+#div2>form>input
+{
+    display: inline-block;
+}
+#submit
+{
+    margin-left: 200px;
+    display: inline-block;
+}
+#textarea
+{
+     width: 250px;
+}
